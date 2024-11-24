@@ -16,8 +16,8 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth::check()){
-            return view('backend.dashboard');
+        if (!Auth::check()) {
+            return redirect()->route('admin')->with('error', 'Access denied. Please log in first.');
         }
         return $next($request);
     }

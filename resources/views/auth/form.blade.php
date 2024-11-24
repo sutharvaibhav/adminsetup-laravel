@@ -251,15 +251,21 @@
                 <form action="{{ route('login.submit') }}" method="POST" class="login">
                     @csrf
                     <div class="field">
-                        <input type="text" name="loginEmail" placeholder="Email Address" required>
+                        <input type="text" name="loginEmail" placeholder="Email Address">
+                        @error('loginEmail')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="field">
-                        <input type="password" name="loginPass" placeholder="Password" required>
+                        <input type="password" name="loginPass" placeholder="Password">
+                        @error('loginPass')
+                            <span style="color: red;">{{ $message }}</span>
+                        @enderror
                     </div>
                     {{-- <div class="pass-link">
                         <a href="#">Forgot password?</a>
                     </div> --}}
-                    <div class="field btn">
+                    <div class="field btn" style="margin-top: 30px;">
                         <button type="submit" class="inputBt">Login</button>
                     </div>
                     {{-- <div class="signup-link">
@@ -269,15 +275,24 @@
                 <form action="{{ route('signup.submit') }}" method="POST" class="signup">
                     @csrf
                     <div class="field">
-                        <input type="text" name="signupName" placeholder="Name" required>
+                        <input type="text" name="signupName" placeholder="Name">
+                        @error('signupName')
+                            <span style="color: red;">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="field">
-                        <input type="text" name="signupEmail" placeholder="Email Address" required>
+                        <input type="text" name="signupEmail" placeholder="Email Address">
+                        @error('signupEmail')
+                            <span style="color: red;">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="field">
-                        <input type="password" name="signupPass" placeholder="Password" required>
+                        <input type="password" name="signupPass" placeholder="Password">
+                        @error('signupPass')
+                            <span style="color: red;">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="field btn">
+                    <div class="field btn" style="margin-top: 30px;">
                         <button type="submit" class="inputBt">Signup</button>
                     </div>
                 </form>

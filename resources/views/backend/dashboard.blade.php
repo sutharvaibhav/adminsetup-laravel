@@ -3,445 +3,134 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>Admin Dashboard</title>
     <style>
-        * {
+        /* Internal CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
         }
 
-        body {
-            min-height: 100vh;
+        nav {
+            background-color: #343a40;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        a {
-            text-decoration: none;
+        nav .brand {
+            font-size: 1.5rem;
+            font-weight: bold;
         }
 
-        li {
+        nav ul {
             list-style: none;
-        }
-
-        h1,
-        h2 {
-            color: #444;
-        }
-
-        h3 {
-            color: #999;
-        }
-
-        .btn {
-            background: #f05462;
-            color: white;
-            padding: 5px 10px;
-            text-align: center;
-        }
-
-        .btn:hover {
-            color: #f05462;
-            background: white;
-            padding: 3px 8px;
-            border: 2px solid #f05462;
-        }
-
-        .title {
+            margin: 0;
+            padding: 0;
             display: flex;
-            align-items: center;
-            justify-content: space-around;
-            padding: 15px 10px;
-            border-bottom: 2px solid #999;
+            gap: 1rem;
         }
 
-        table {
-            padding: 10px;
+        nav ul li {
+            display: inline;
         }
 
-        th,
-        td {
-            text-align: left;
-            padding: 8px;
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
         }
 
-        .side-menu {
-            position: fixed;
-            background: #f05462;
-            width: 20vw;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .side-menu .brand-name {
-            height: 10vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .side-menu li {
-            font-size: 24px;
-            padding: 10px 40px;
-            color: white;
-            display: flex;
-            align-items: center;
-        }
-
-        .side-menu li:hover {
-            background: white;
-            color: #f05462;
+        nav ul li a:hover {
+            text-decoration: underline;
         }
 
         .container {
-            position: absolute;
-            right: 0;
-            width: 80vw;
-            height: 100vh;
-            background: #f1f1f1;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 8px;
+            max-width: 800px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .container .header {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 80vw;
-            height: 10vh;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            z-index: 1;
+        .form-group {
+            margin-bottom: 1rem;
         }
 
-        .container .header .nav {
-            width: 90%;
-            display: flex;
-            align-items: center;
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
         }
 
-        .container .header .nav .search {
-            flex: 3;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container .header .nav .search input[type=text] {
-            border: none;
-            background: #f1f1f1;
-            padding: 10px;
-            width: 50%;
-        }
-
-        .container .header .nav .search button {
-            width: 40px;
-            height: 40px;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .container .header .nav .search button img {
-            width: 30px;
-            height: 30px;
-        }
-
-        .container .header .nav .user {
-            flex: 1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .container .header .nav .user img {
-            width: 40px;
-            height: 40px;
-        }
-
-        .container .header .nav .user .img-case {
-            position: relative;
-            width: 50px;
-            height: 50px;
-        }
-
-        .container .header .nav .user .img-case img {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .form-group input {
             width: 100%;
-            height: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
-        .container .content {
-            position: relative;
-            margin-top: 10vh;
-            min-height: 90vh;
-            background: #f1f1f1;
+        .btn {
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
 
-        .container .content .cards {
-            padding: 20px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .container .content .cards .card {
-            width: 250px;
-            height: 150px;
-            background: white;
-            margin: 20px 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-
-        .container .content .content-2 {
-            min-height: 60vh;
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
-
-        .container .content .content-2 .recent-payments {
-            min-height: 50vh;
-            flex: 5;
-            background: white;
-            margin: 0 25px 25px 25px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container .content .content-2 .new-students {
-            flex: 2;
-            background: white;
-            min-height: 50vh;
-            margin: 0 25px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container .content .content-2 .new-students table td:nth-child(1) img {
-            height: 40px;
-            width: 40px;
-        }
-
-        @media screen and (max-width: 1050px) {
-            .side-menu li {
-                font-size: 18px;
-            }
-        }
-
-        @media screen and (max-width: 940px) {
-            .side-menu li span {
-                display: none;
-            }
-
-            .side-menu {
-                align-items: center;
-            }
-
-            .side-menu li img {
-                width: 40px;
-                height: 40px;
-            }
-
-            .side-menu li:hover {
-                background: #f05462;
-                padding: 8px 38px;
-                border: 2px solid white;
-            }
-        }
-
-        @media screen and (max-width:536px) {
-            .brand-name h1 {
-                font-size: 16px;
-            }
-
-            .container .content .cards {
-                justify-content: center;
-            }
-
-            .side-menu li img {
-                width: 30px;
-                height: 30px;
-            }
-
-            .container .content .content-2 .recent-payments table th:nth-child(2),
-            .container .content .content-2 .recent-payments table td:nth-child(2) {
-                display: none;
-            }
+        .btn:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 
 <body>
-    <div class="side-menu">
-        <div class="brand-name">
-            <h1>Brand</h1>
-        </div>
+    <!-- Navbar -->
+    <nav>
+        <div class="brand">Admin Dashboard</div>
         <ul>
-            <li><img src="dashboard (2).png" alt="">&nbsp; <span>Dashboard</span> </li>
-            <li><img src="reading-book (1).png" alt="">&nbsp;<span>Students</span> </li>
-            <li><img src="teacher2.png" alt="">&nbsp;<span>Teachers</span> </li>
-            <li><img src="school.png" alt="">&nbsp;<span>Schools</span> </li>
-            <li><img src="payment.png" alt="">&nbsp;<span>Income</span> </li>
-            <li><img src="help-web-button.png" alt="">&nbsp; <span>Help</span></li>
-            <li><img src="settings.png" alt="">&nbsp;<span>Settings</span> </li>
+            <li><a href="{{route('admin.logout')}}">Logout</a></li>
         </ul>
-    </div>
-    <div class="container">
-        <div class="header">
-            <div class="nav">
-                <div class="search">
-                    <input type="text" placeholder="Search..">
-                    <button type="submit"><img src="search.png" alt=""></button>
-                </div>
-                <div class="user">
-                    <a href="#" class="btn">Add New</a>
-                    <img src="notifications.png" alt="">
-                    <div class="img-case">
-                        <img src="user.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="cards">
-                <div class="card">
-                    <div class="box">
-                        <h1>2194</h1>
-                        <h3>Students</h3>
-                    </div>
-                    <div class="icon-case">
-                        <img src="students.png" alt="">
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="box">
-                        <h1>53</h1>
-                        <h3>Teachers</h3>
-                    </div>
-                    <div class="icon-case">
-                        <img src="teachers.png" alt="">
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="box">
-                        <h1>5</h1>
-                        <h3>Schools</h3>
-                    </div>
-                    <div class="icon-case">
-                        <img src="schools.png" alt="">
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="box">
-                        <h1>350000</h1>
-                        <h3>Income</h3>
-                    </div>
-                    <div class="icon-case">
-                        <img src="income.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="content-2">
-                <div class="recent-payments">
-                    <div class="title">
-                        <h2>Recent Payments</h2>
-                        <a href="#" class="btn">View All</a>
-                    </div>
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>School</th>
-                            <th>Amount</th>
-                            <th>Option</th>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">View</a></td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">View</a></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="new-students">
-                    <div class="title">
-                        <h2>New Students</h2>
-                        <a href="#" class="btn">View All</a>
-                    </div>
-                    <table>
-                        <tr>
-                            <th>Profile</th>
-                            <th>Name</th>
-                            <th>option</th>
-                        </tr>
-                        <tr>
-                            <td><img src="user.png" alt=""></td>
-                            <td>John Steve Doe</td>
-                            <td><img src="info.png" alt=""></td>
-                        </tr>
-                        <tr>
-                            <td><img src="user.png" alt=""></td>
-                            <td>John Steve Doe</td>
-                            <td><img src="info.png" alt=""></td>
-                        </tr>
-                        <tr>
-                            <td><img src="user.png" alt=""></td>
-                            <td>John Steve Doe</td>
-                            <td><img src="info.png" alt=""></td>
-                        </tr>
-                        <tr>
-                            <td><img src="user.png" alt=""></td>
-                            <td>John Steve Doe</td>
-                            <td><img src="info.png" alt=""></td>
-                        </tr>
+    </nav>
 
-                    </table>
-                </div>
+    <!-- Dashboard Content -->
+    <div class="container" id="profile-settings">
+        <h2>Profile Settings</h2>
+        @if (session('success'))
+            <p style="color: green;">{{ session('success') }}</p>
+        @endif
+        <form action="{{ route('admin.changepassword') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="current-password">Current Password</label>
+                <input type="password" id="current-password" name="current_password">
+                @error('current_password')
+                    <span style="color: red;">{{ $message }}</span>
+                @enderror
             </div>
-        </div>
+            <div class="form-group">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" name="new_password">
+                @error('new_password')
+                    <span style="color: red;">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm New Password</label>
+                <input type="password" id="confirm-password" name="confirm_password">
+                @error('confirm_password')
+                    <span style="color: red;">{{ $message }}</span>
+                @enderror
+            </div>
+            <button type="submit" class="btn">Change Password</button>
+        </form>
     </div>
 </body>
 
